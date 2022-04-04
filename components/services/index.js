@@ -66,6 +66,7 @@ const TabContainer = styled.div`
     min-height: 500px;
 `
 const Tabs = styled.div`
+    margin: 2rem;
     display: grid;
     grid-template-areas:
     'SmartHome'
@@ -103,8 +104,7 @@ const Item = styled.div`
     align-items: center;
     width: 100%;
     min-height: 10em;
-    height: auto;
-    /* border: 1px solid #000; */
+    height: 15rem;
     padding-top: 1rem;
     img {
         height: 4em;
@@ -117,12 +117,27 @@ const Item = styled.div`
         opacity: 0;
         text-align: center;
         padding: 0 .5rem;
+        width: 17rem;
     }
     :hover {
+        img {
+            transition-duration: 500ms;
+            opacity: .25;
+            height: 9em;
+            margin: 1rem;
+        }
         p {
             opacity: 1;
             font-size: 1rem;
+            font-weight: 400;
+            position: absolute;
+            margin: 2.5rem;
+            transition-duration: 500ms;
         }
+        h2 {
+            transition-duration: 300ms;
+            font-weight: bold;
+    }
     }
     @media only screen and (min-width: 600px) {
         width: 15rem;
@@ -133,7 +148,7 @@ const Item = styled.div`
 
         }
         p {
-            
+
         }
     } 
     @media only screen and (min-width: 768px) {
