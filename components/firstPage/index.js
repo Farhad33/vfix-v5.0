@@ -16,7 +16,7 @@ export default function FirstPage() {
         <ProjectsButton>
           <Projects />
           <BookButtonWrapperTop>
-            <BookButton onClick={  toggelOverlay  }>Book Now????</BookButton>
+            <BookButton onClick={  toggelOverlay  }>Book Now</BookButton>
           </BookButtonWrapperTop>
         </ProjectsButton>
         <Home src="assets/main/3d-home.svg" />
