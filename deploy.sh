@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tar czf myVfixWeb.tar.gz .next components pages static .babelrc package.json postcss.config.js
+tar czf myVfixWeb.tar.gz .next components pages .babelrc package.json postcss.config.js Robots.txt styles public
 scp myVfixWeb.tar.gz majid:~
 rm myVfixWeb.tar.gz
 
