@@ -71,8 +71,21 @@ server {
 	proxy_set_header X-Real-IP $remote_addr;
 	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
-	location /api/ {
+	location /api/email {
         proxy_pass "http://localhost:3010/";
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		# try_files $uri $uri/ =404;
+	}
+
+	location /admin/ {
+        proxy_pass "http://localhost:1337/admin/";
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		# try_files $uri $uri/ =404;
+	}
+	location /api/ {
+        proxy_pass "http://localhost:1337/api/";
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
 		# try_files $uri $uri/ =404;
