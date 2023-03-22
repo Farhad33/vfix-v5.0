@@ -21,7 +21,7 @@ export default function Services() {
             <TabContainer>
                 <TabItems>
                     {data.map(({id, attributes: {title, description, thumbnail}}) => (
-                        <Item key={id} href={`https://myvfix.com/service/:${id}`}>
+                        <Item key={id} href={`https://myvfix.com/service/${id}`}>
                             <h2>{title}</h2>
                             <p>{description}</p>
                             <img src={`http://strapi.myvfix.com${thumbnail.data.attributes.url}`} />
@@ -81,6 +81,8 @@ const Item = styled.a`
     flex-direction: column;
     align-items: center;
     border: 1px solid gray;
+    text-decoration: none;
+    color: black;
     border-radius: 15px;
     margin: 10px;
     width: 100%;
@@ -96,7 +98,7 @@ const Item = styled.a`
     }
     h2 {
         font-size: 1.2rem;
-        font-weight: 400;
+        font-weight: 500;
         margin: 5px;
     }
     p {
