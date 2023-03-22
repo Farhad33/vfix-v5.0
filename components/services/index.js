@@ -113,9 +113,10 @@ const Item = styled.div`
     height: 15rem;
     padding-top: 1rem;
     img {
-        height: 4em;
+        height: 6em;
         opacity: .4;
-        margin-top: -50px;
+        position: absolute;
+        margin: 50px;
     }
     h2 {
         font-size: 1.2rem;
