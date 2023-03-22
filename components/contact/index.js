@@ -27,6 +27,7 @@ export default function Contact() {
 
     return (
         <Container>
+            <div id='contactus'></div>
             <ImageWrapper>
                 <Image src='assets/Contact-us.svg' />
             </ImageWrapper>
