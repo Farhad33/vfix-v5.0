@@ -18,7 +18,7 @@ export default function Article() {
         <Container>
             <PageContent>
                 {data.data.map((article) => (
-                        <ArticleBox>
+                        <ArticleBox key={article.id}>
                             <h1>{article.attributes.title}</h1>
                             <Markdown key={article.id}>{article.attributes.markdown}</Markdown>
                         </ArticleBox>
@@ -27,7 +27,7 @@ export default function Article() {
             <PageContent>
                 <RelativeArticleList>
                     {data.data.map((article) => (
-                        <li>
+                        <li key={article.id}>
                             {article.attributes.title}
                         </li>
                     ))}
