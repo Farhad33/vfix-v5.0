@@ -44,7 +44,7 @@ const Container = styled.header`
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	background: transparent;
+	background: #000000c7;
 	z-index: 11;
 	padding: 0 2em;
 	@media (max-width: 700px) {
