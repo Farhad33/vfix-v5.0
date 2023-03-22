@@ -25,12 +25,10 @@ export default function Header({ overlay, toggelOverlay }) {
 			}
 			<Logo src='assets/logo/VFix-Logo.svg' />
 			<Nav ham={ ham }>
-				<NavItem onClick={() => NavItemOnClick(700)}>Guarantee</NavItem>
-				<NavItem onClick={() => NavItemOnClick(1550)}>Services</NavItem>
-				<NavItem onClick={ () => NavItemOnClick(3000) }>Contact Us</NavItem>
-				<NavItem onClick={ NavItemOnClick }>
-					<a href="tel:8559558349">(855) 955-8349</a>
-				</NavItem>
+				<NavItem href="/#services">Services</NavItem>
+				<NavItem href="/articles">Articles</NavItem>
+				<NavItem href="/#contactus" >Contact Us</NavItem>
+				<NavItem href="tel:8559558349">(855) 955-8349</NavItem>
 			</Nav>
 			<Burger
 				onClick={ () => setHam(!ham) }
@@ -87,7 +85,7 @@ const Burger = styled.div`
 	}
 `
 
-const NavItem = styled.span`
+const NavItem = styled.a`
 	display: flex;
 	color: white;
 	font-size: 1.2rem;
