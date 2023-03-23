@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Modal from '../modal'
 
 export default function Header({ overlay, toggelOverlay }) {
 	const [ ham, setHam ] = useState(false)
@@ -16,13 +15,6 @@ export default function Header({ overlay, toggelOverlay }) {
 
 	return (
 		<Container>
-			{ overlay &&
-				<Modal onClose={  toggelOverlay  }>
-					<Iframe
-						src='https://app.acuityscheduling.com/schedule.php?owner=12272304'
-					></Iframe>
-				</Modal> 
-			}
 			<Logo src='assets/logo/VFix-Logo.svg' />
 			<Nav ham={ ham }>
 				<NavItem href="/#services">Services</NavItem>
@@ -106,10 +98,4 @@ const Logo = styled.img`
 	cursor: pointer;
 	width: 10em;
 	height: 5em;
-`
-
-const Iframe = styled.iframe`
-	width: 100%;
-	height: 100%;
-	background: rgba(255, 255, 255, 0.85);
 `

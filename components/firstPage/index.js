@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled, { keyframes, css } from 'styled-components'
 import Projects from './Projects'
 import Header from '../header'
-import BookButton from '../header/BookButton'
+import BookButton from '../common/BookButton'
 
 export default function FirstPage() {
   const [ overlay, setOverlay ] = useState(false)
@@ -15,14 +15,10 @@ export default function FirstPage() {
       <SubContainer>
         <ProjectsButton>
           <Projects />
-          <BookButtonWrapperTop>
-            <BookButton onClick={  toggelOverlay  }>Book Now</BookButton>
-          </BookButtonWrapperTop>
+          <BookButtonWrapperTop />
         </ProjectsButton>
         <Home src="assets/main/3d-home.svg" />
-        <BookButtonWrapperBottom>
-          <BookButton onClick={  toggelOverlay  }>Book Now</BookButton>
-        </BookButtonWrapperBottom>
+        <BookButtonWrapperBottom />
       </SubContainer>
     </Container>
   )
@@ -60,19 +56,15 @@ const SubContainer = styled.div`
   }
 `
 
-const BookButtonWrapperTop = styled.div`
+const BookButtonWrapperTop = styled(BookButton)`
   display: flex;
-  width: 20rem;
-  color: black;
   margin: 4rem 1rem 1rem 10rem;
   @media (max-width: 900px) {
     display: none;
   }
 `
-const BookButtonWrapperBottom = styled.div`
+const BookButtonWrapperBottom = styled(BookButton)`
   display: none;
-  width: 20rem;
-  color: black;
   margin: 1rem;
   @media (max-width: 900px) {
     display: flex;
