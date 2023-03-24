@@ -5,6 +5,7 @@ import useFetch from '../../utility/hooks/useFetch'
 
 export default function Services() {
     const [ tabIndex, setTabIndex ] = useState(0)
+    const baseURL = process.env.NEXT_PUBLIC_BASEURL
 
     const { loading, error, data } = useFetch('http://strapi.myvfix.com/api/services?populate=articles,thumbnail');
 
@@ -21,7 +22,7 @@ export default function Services() {
             <TabContainer>
                 <TabItems>
                     {data.map(({id, attributes: {title, description, thumbnail}}) => (
-                        <Item key={id} href={`https://myvfix.com/service/${id}`}>
+                        <Item key={id} href={`${baseURL}/service/${id}`}>
                             <h2>{title}</h2>
                             <p>{description}</p>
                             <img src={`http://strapi.myvfix.com${thumbnail.data.attributes.url}`} />

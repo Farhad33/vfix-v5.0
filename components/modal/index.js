@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ReactDom from 'react-dom'
 import styled from 'styled-components'
 
-export default function Modal(props) {
+export default function Modal({ children, setOnClose }) {
   const overlayContainer = document.createElement('div')
   document.body.appendChild(overlayContainer)
 
@@ -13,8 +13,8 @@ export default function Modal(props) {
 
   return ReactDom.createPortal(
     <Overlay>
-      <Close onClick={ props.onClose }>X</Close>
-      { props.children }
+      <Close onClick={ () => setOnClose(false) }>X</Close>
+      { children }
     </Overlay>,
     overlayContainer
   )
