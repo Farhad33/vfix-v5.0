@@ -12,7 +12,7 @@ export default function Contact() {
     const onSubmitForm = (event) => {
         event.preventDefault()
 
-            axios.post('https://myvfix.com/api/email', { name, email, text })
+            axios.post('https://myvfix.com/api/email', { name, email, tel, text })
             .then(() => {
                 setName('')
                 setEmail('')
