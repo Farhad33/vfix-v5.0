@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios';
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
@@ -11,18 +11,22 @@ export default function Login() {
     const router = useRouter()
 
 
+    useEffect(() => {
+        let jwt = sessionStorage.getItem("jwt");
+        if (jwt) {
+            router.push('/admin')
+        }
+    }, [])
+
     const handleOnSubmit = (e) => {
         e.preventDefault()
         axios
-        .post('http://strapi.myvfix.com/api/auth/local', {
+        .post('https://strapi.myvfix.com/api/auth/local', {
             identifier: username,
             password: password,
         })
         .then(response => {
-            // Handle success.
-            console.log('Well done!');
-            console.log('User profile', response.data.user);
-            console.log('User token', response.data.jwt);
+            sessionStorage.setItem("jwt", response.data.jwt);
             router.push('/admin')
         })
         .catch(error => {

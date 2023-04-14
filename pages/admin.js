@@ -1,5 +1,5 @@
-// import Login from '../components/login/Login'
+import Admin from '../components/admin/Admin'
 
 export default function AdminPage() {
-    return <div>This is Admin Page</div>
+    return <Admin />
 }
