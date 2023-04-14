@@ -9,10 +9,18 @@ export default function Contact() {
     const [ text, setText ] = useState('')
     const [ success, setSuccess ] = useState(false)
 
+    const baseURL = process.env.NEXT_PUBLIC_BACKEND || 'https://myvfix.com'
+    let URL = ''
+    if (process.env.NEXT_PUBLIC_BACKEND) {
+        URL = baseURL + '/email'
+    } else {
+        URL = baseURL + '/api/email'
+    }
+
     const onSubmitForm = (event) => {
         event.preventDefault()
 
-            axios.post('https://myvfix.com/api/email', { name, email, tel, text })
+            axios.post(URL, { name, email, tel, text })
             .then(() => {
                 setName('')
                 setEmail('')
