@@ -11,7 +11,7 @@ export let api = axios.create({
 })
 
 const useFetch = (url) => {
-  const [result, setResult] = useState({ data: null, error: false, loading: true })
+  const [result, setResult] = useState({ data: [], error: false, loading: true })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +24,7 @@ const useFetch = (url) => {
         })
       } catch (error) {
         setResult({
-          data: null,
+          data: [],
           loading: false,
           error
         })
