@@ -38,7 +38,7 @@ export default function Admin() {
         }
     }, [])
 
-    const { loading, error, data } = useFetch('http://localhost:3010/technicians');
+    const { loading, error, data } = useFetch(`${VFixBackendURL}/technicians`);
 
     if(loading) return 'loading'
     if(error) return 'error'
