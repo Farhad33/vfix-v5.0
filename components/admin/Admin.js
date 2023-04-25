@@ -38,8 +38,7 @@ export default function Admin() {
         }
     }, [])
 
-    const { loading, error, data } = useFetch('https://localhost:3010/technicians');
-    console.log('data =>',data);
+    const { loading, error, data } = useFetch('http://localhost:3010/technicians');
 
     if(loading) return 'loading'
     if(error) return 'error'
