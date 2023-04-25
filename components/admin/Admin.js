@@ -17,6 +17,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Button from '@mui/material/Button';
 
 
 export default function Admin() {
@@ -60,7 +61,7 @@ export default function Admin() {
         <Header>
             <Logo src='assets/logo/VFix-logo-larg.svg' />
             <TechnicianForm onSubmit={handleSearchSubmit}>
-                    <FormControl fullWidth>
+                    <FormControl>
                         <InputLabel>Technician</InputLabel>
                         <Select
                             value={selectedTech}
@@ -84,7 +85,7 @@ export default function Admin() {
                         onChange={(newValue) => setDateTo(newValue)}
                     />
                 </LocalizationProvider>
-                <Search type='submit' value='Search'/>
+                <SearchButton type='submit' variant="contained">Search</SearchButton>
             </TechnicianForm>
         </Header>
     )
@@ -94,7 +95,7 @@ const Header = styled.header`
     display: grid;
     padding: 20px;
     font-size: 14px;
-    grid-template-columns: 10% 70% 20% ;
+    grid-template-columns: 10% 90% ;
     align-items: center;
 `
 const Logo = styled.img`
@@ -104,21 +105,18 @@ const Logo = styled.img`
 `
 const TechnicianForm = styled.form`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     label {
         display: flex;
         align-items: center;
         font-size: 18px;
         font-weight: 500;
     }
+    .MuiFormControl-root {
+        min-width: 200px;
+        max-width: 300px;
+    }
 `
-// const Select = styled.select`
-//     padding: 10px;
-//     min-width: 200px;
-//     font-size: 15px;
-//     margin-left: 5px;
-//     margin-right: 20px;
-// `
 const DatePicker = styled(MUIDatePicker)`
     .MuiInputBase-root {
         max-width: 200px;
@@ -126,13 +124,8 @@ const DatePicker = styled(MUIDatePicker)`
     }
     margin: 0 10px !important;
 `
-const Search = styled.input`
+const SearchButton = styled(Button)`
     margin: 0 5px;
     font-size: 18px;
-    padding: 5px 25px;
-    font-weight: 500;
-    background-color: #07aef0;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    width: 150px;
 `
