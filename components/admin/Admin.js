@@ -38,7 +38,8 @@ export default function Admin() {
         }
     }, [])
 
-    const { loading, error, data } = useFetch('https://strapi.myvfix.com/api/technicians');
+    const { loading, error, data } = useFetch('https://localhost:3010/technicians');
+    console.log('data =>',data);
 
     if(loading) return 'loading'
     if(error) return 'error'
