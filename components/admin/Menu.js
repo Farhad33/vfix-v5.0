@@ -62,6 +62,8 @@ export default function Menu({ setJobs }) {
             job.id = element.id
             job.serviceType = element.attributes.serviceType
             job.jobPrice = element.attributes.jobPrice
+            job.jobDate = element.attributes.jobDate
+            job.jobHour = element.attributes.jobHour
             return job
         })
         return jobs
