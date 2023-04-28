@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { DataGrid } from '@mui/x-data-grid';
-import TextField from "@mui/material/TextField";
+import { DataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
+import { api, VFixBackendURL } from '../../utility/api'
 
 export default function JobsTable({ jobs }) {
   
@@ -25,10 +25,10 @@ export default function JobsTable({ jobs }) {
     { field: 'totalHour', headerName: 'Total Hours Worked', width: 130 },
     { field: 'jobPrice', headerName: 'Final price of the job', width: 130 },
     { field: 'cash', headerName: 'Cash Received By Technician', width: 130, renderCell: ({row: {sideTech, cash}}) => {
-      return sideTech.length ? <div>{cash}</div> : <GrayCell>{cash}</GrayCell>
+      return sideTech.length ? <GrayCell>{cash}</GrayCell> : <div>{cash}</div>
     } },
     { field: 'reimbursement', headerName: 'Technician Reimbursment', width: 130, editable: true, renderCell: ({row: {sideTech, reimbursement}}) => {
-      return sideTech.length ? <div>{reimbursement}</div> : <GrayCell>{reimbursement}</GrayCell>
+      return sideTech.length ? <GrayCell>{reimbursement}</GrayCell> : <div>{reimbursement}</div>
     } },
     { field: 'sideTech', headerName: 'Side Technician', width: 130, editable: true },
     { field: 'finalPay', headerName: 'Technician Final Payout', width: 130 },
@@ -43,6 +43,18 @@ export default function JobsTable({ jobs }) {
                 rowsPerPageOptions={[5]}
                 checkboxSelection
                 getRowHeight={() => 'auto'}
+                onCellEditStop={(params, event) => {
+                  if (params.reason === GridCellEditStopReasons.tabKeyDown || params.reason === GridCellEditStopReasons.enterKeyDown) {
+                    event.defaultMuiPrevented = true;
+                    let data = { 
+                      'data': { 
+                        [params.field]: event.target.value,
+                        id: params.id
+                      }
+                    }
+                    api.put(`${VFixBackendURL}/job-technicians`, data)
+                  }
+                }}
             />
         </JobsContainer>
     )
