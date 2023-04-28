@@ -55,15 +55,43 @@ export default function Menu({ setJobs }) {
             .catch(console.log)
         }
     }
+    
+    function convertToMinutes(timeString) {
+        const [hours, minutes] = timeString.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
+    
+    const calculateFinalPay = ({technicianRateMode, technicianRate=0, totalHour=0, cash=0, reimbursement=0, jobPrice=0}) => {
+        let finalPayment = 0
+        const hours = convertToMinutes(totalHour)
+        const rate = technicianRate / 60
+        if(technicianRateMode === 'hourly') {
+            finalPayment = (hours * rate) - cash + reimbursement
+            finalPayment = Number(finalPayment).toFixed(2)
+        } else if(technicianRateMode === 'percentage') {
+            finalPayment = (jobPrice * technicianRate) - cash + reimbursement
+        }
+        return finalPayment
+    }
 
     const jobsSelector = (data=[]) => {
         const jobs = data.map(element => {
+
             let job = {}
             job.id = element.id
-            job.serviceType = element.attributes.serviceType
-            job.jobPrice = element.attributes.jobPrice
-            job.jobDate = element.attributes.jobDate
-            job.jobHour = element.attributes.jobHour
+            job.isPaid = element.attributes.isPaid
+            job.reimbursement = element.attributes.reimbursement
+            job.sideTech = element.attributes.sideTech
+            job.technicianRate = element.attributes.technicianRate
+            job.technicianRateMode = element.attributes.technicianRateMode
+            job.serviceType = element.attributes.jobs.data[0].attributes.serviceType
+            job.jobPrice = element.attributes.jobs.data[0].attributes.jobPrice
+            job.jobDate = element.attributes.jobs.data[0].attributes.jobDate
+            job.jobHour = element.attributes.jobs.data[0].attributes.jobHour
+            job.totalHour = element.attributes.jobs.data[0].attributes.totalHoursWorked
+            job.cash = element.attributes.jobs.data[0].attributes.cash
+            const finalPay = calculateFinalPay(job)
+            job.finalPay = finalPay
             return job
         })
         return jobs

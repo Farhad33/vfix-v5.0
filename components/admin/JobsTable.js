@@ -1,7 +1,38 @@
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { DataGrid, gridClasses } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
+import TextField from "@mui/material/TextField";
 
 export default function JobsTable({ jobs }) {
+  
+
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'comp', headerName: 'Tech Comp', width: 100, renderCell: ({ row: {technicianRate, technicianRateMode} }) => {
+      let rateAndSign = technicianRateMode === 'percentage' ? '% ' : 'H '
+      rateAndSign += technicianRate
+      return (<div>{rateAndSign}</div>)
+    } },
+    { field: 'serviceType', headerName: 'Service Type', width: 130 },
+    { field: 'startEnd', headerName: 'Job Start/End/Date/Time', width: 145, renderCell: (params) => {
+      return (
+        <div>
+          <div>{params.row.jobDate}</div>
+          <div>{params.row.jobHour}</div>
+        </div>
+      )
+    } },
+    { field: 'totalHour', headerName: 'Total Hours Worked', width: 130 },
+    { field: 'jobPrice', headerName: 'Final price of the job', width: 130 },
+    { field: 'cash', headerName: 'Cash Received By Technician', width: 130, renderCell: ({row: {sideTech, cash}}) => {
+      return sideTech.length ? <div>{cash}</div> : <GrayCell>{cash}</GrayCell>
+    } },
+    { field: 'reimbursement', headerName: 'Technician Reimbursment', width: 130, editable: true, renderCell: ({row: {sideTech, reimbursement}}) => {
+      return sideTech.length ? <div>{reimbursement}</div> : <GrayCell>{reimbursement}</GrayCell>
+    } },
+    { field: 'sideTech', headerName: 'Side Technician', width: 130, editable: true },
+    { field: 'finalPay', headerName: 'Technician Final Payout', width: 130 },
+  ];
 
     return (
         <JobsContainer>
@@ -19,21 +50,13 @@ export default function JobsTable({ jobs }) {
 
 const JobsContainer = styled.div`
 `
+const GrayCell = styled.div`
+  color: lightgray;
+`
 
 
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'serviceType', headerName: 'Service Type', width: 130 },
-  { field: 'startEnd', headerName: 'Job Start/End/Date/Time', width: 140, renderCell: (params) => {
-    return (
-      <div>
-        <div>{params.row.jobDate}</div>
-        <div>{params.row.jobHour}</div>
-      </div>
-    )
-  } },
-  { field: 'jobPrice', headerName: 'Job Price', width: 130 },
+
 //   {
 //     field: 'fullName',
 //     headerName: 'Full name',
@@ -43,4 +66,3 @@ const columns = [
 //     valueGetter: (params) =>
 //       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
 //   },
-];
