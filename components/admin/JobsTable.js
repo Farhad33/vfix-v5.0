@@ -45,7 +45,6 @@ export default function JobsTable({ jobs }) {
                 getRowHeight={() => 'auto'}
                 onCellEditStop={(params, event) => {
                   if (params.reason === GridCellEditStopReasons.tabKeyDown || params.reason === GridCellEditStopReasons.enterKeyDown) {
-                    event.defaultMuiPrevented = true;
                     let data = { 
                       'data': { 
                         [params.field]: event.target.value,
