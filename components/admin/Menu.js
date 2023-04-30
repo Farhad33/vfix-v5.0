@@ -76,7 +76,6 @@ export default function Menu({ setJobs }) {
 
     const jobsSelector = (data=[]) => {
         const jobs = data.map(element => {
-
             let job = {}
             job.id = element.id
             job.isPaid = element.attributes.isPaid
@@ -90,6 +89,8 @@ export default function Menu({ setJobs }) {
             job.jobHour = element.attributes.jobs.data[0].attributes.jobHour
             job.totalHour = element.attributes.jobs.data[0].attributes.totalHoursWorked
             job.cash = element.attributes.jobs.data[0].attributes.cash
+            job.cash = element.attributes.jobs.data[0].attributes.cash
+            job.strapiTechID = element?.attributes?.technicians?.data[0]?.id
             const finalPay = calculateFinalPay(job)
             job.finalPay = finalPay
             return job

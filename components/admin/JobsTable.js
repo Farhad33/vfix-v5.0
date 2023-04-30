@@ -8,6 +8,7 @@ import { Zoom, Button, Tooltip as MUITooltip } from '@mui/material';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { tooltipClasses } from '@mui/material/Tooltip';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import TechCompensation from './TechCompensation'
 
 
 
@@ -45,6 +46,7 @@ export default function JobsTable({ jobs }) {
       : 
       <FinalPay color='red'><HighlightOffIcon/>${finalPay}</FinalPay>
     ) },
+    // tooltip
     { field: 'tooltip', headerName: '', width: 10, renderCell: CustomCellTooltip}
 
   ];
@@ -89,9 +91,10 @@ const Tooltip = styled(({ className, ...props }) => (
   },
 }))
 
-const CustomCellTooltip = ({ id, row: { isPaid }})   => { 
+const CustomCellTooltip = ({ id, row: { isPaid, technicianRate, technicianRateMode, strapiTechID }})   => { 
   const [open, setOpen] = useState(false)
   const [hasItPaid, setHasItPaid] = useState(isPaid)
+  const [openDialog, setOpenDialog] = useState(false)
 
   const handleSubmit = () => {
     let data = {  
@@ -103,6 +106,11 @@ const CustomCellTooltip = ({ id, row: { isPaid }})   => {
       setHasItPaid(!hasItPaid)
     })
     .catch(console.log)
+  }
+
+  const handleTechCompensationClick = () => {
+    setOpenDialog(true)
+    setOpen(false)
   }
 
   return (
@@ -133,12 +141,24 @@ const CustomCellTooltip = ({ id, row: { isPaid }})   => {
                   >
                     <CheckCircleOutlineIcon /> Mark as Paid
                   </Button>
-              }
+                }
+                <Button 
+                  variant="contained"
+                  onClick={handleTechCompensationClick}
+                >Tech Compensation</Button>
               </TooltipTitle>
             } 
           >
             <MoreVertIcon onClick={() => setOpen(!open)} />
         </Tooltip>
+        <TechCompensation 
+          open={openDialog} 
+          setOpen={setOpenDialog}
+          technicianRate={technicianRate}
+          technicianRateMode={technicianRateMode}
+          id={id}
+          strapiTechID={strapiTechID}
+        />
       </div>
     </ClickAwayListener>
 )}
