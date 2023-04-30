@@ -2,6 +2,13 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { DataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
 import { api, VFixBackendURL } from '../../utility/api'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { Zoom, Button, Tooltip as MUITooltip } from '@mui/material';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import { tooltipClasses } from '@mui/material/Tooltip';
+
+
 
 export default function JobsTable({ jobs }) {
   
@@ -32,6 +39,8 @@ export default function JobsTable({ jobs }) {
     } },
     { field: 'sideTech', headerName: 'Side Technician', width: 130, editable: true },
     { field: 'finalPay', headerName: 'Technician Final Payout', width: 130 },
+    { field: 'tooltip', headerName: '', width: 10, renderCell: CustomCellTooltip}
+
   ];
 
     return (
@@ -46,10 +55,8 @@ export default function JobsTable({ jobs }) {
                 onCellEditStop={(params, event) => {
                   if (params.reason === GridCellEditStopReasons.tabKeyDown || params.reason === GridCellEditStopReasons.enterKeyDown) {
                     let data = { 
-                      'data': { 
-                        [params.field]: event.target.value,
-                        id: params.id
-                      }
+                      [params.field]: event.target.value,
+                      id: params.id
                     }
                     api.put(`${VFixBackendURL}/job-technicians`, data)
                   }
@@ -65,15 +72,74 @@ const GrayCell = styled.div`
   color: lightgray;
 `
 
+const Tooltip = styled(({ className, ...props }) => (
+  <MUITooltip {...props} classes={{ popper: className }} />
+))(() => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#fff',
+    padding: '26px 24px',
+    boxShadow: '0px 2px 48px 0px #00000026',
+    borderRadius: '7px'
+  },
+}))
 
+const CustomCellTooltip = ({ id, row: { isPaid }})   => { 
+  const [open, setOpen] = useState(false)
+  const [hasItPaid, setHasItPaid] = useState(isPaid)
 
+  const handleSubmit = () => {
+    let data = {  
+      isPaid: !hasItPaid,
+      id
+    }
+    api.put(`${VFixBackendURL}/job-technicians`, data)
+    .then(result => {
+      setHasItPaid(!hasItPaid)
+    })
+    .catch(console.log)
+  }
 
-//   {
-//     field: 'fullName',
-//     headerName: 'Full name',
-//     description: 'This column has a value getter and is not sortable.',
-//     sortable: false,
-//     width: 160,
-//     valueGetter: (params) =>
-//       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-//   },
+  return (
+    <ClickAwayListener onClickAway={() => setOpen(false)}>
+      <div>
+        <Tooltip
+          TransitionComponent={Zoom}
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          disableFocusListener
+          disableHoverListener
+          disableTouchListener
+          placement='left'
+          title={
+              <TooltipTitle>
+                {hasItPaid ?
+                  <Button 
+                    variant="outlined"
+                    onClick={handleSubmit}
+                  >
+                    <CheckCircleOutlineIcon sx={{marginRight: 1,}}/> Mark as Unpaid
+                  </Button>
+                  :
+                  <Button 
+                    variant="contained"
+                    onClick={handleSubmit}
+                  >
+                    <CheckCircleOutlineIcon sx={{marginRight: 1,}}/> Mark as Paid
+                  </Button>
+              }
+              </TooltipTitle>
+            } 
+          >
+            <MoreVertIcon onClick={() => setOpen(!open)} />
+        </Tooltip>
+      </div>
+    </ClickAwayListener>
+)}
+
+const TooltipTitle = styled.div`
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+`
