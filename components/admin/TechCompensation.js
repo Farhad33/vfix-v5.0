@@ -22,12 +22,12 @@ export default function TechCompensation({ open, setOpen, technicianRate, techni
     const handleOnSubmit = (e) => {
         e.preventDefault()
         // update the job (job-technicians)
-        let data = {  
+        let dataJobTech = {  
             technicianRateMode: mode,
             technicianRate: rate,
             id
         }
-        api.put(`${VFixBackendURL}/job-technicians`, data)
+        api.put(`${VFixBackendURL}/job-technicians`, dataJobTech)
         .then(result => {
             setOpen(false)
         })
@@ -36,7 +36,16 @@ export default function TechCompensation({ open, setOpen, technicianRate, techni
 
         if(futureJobs) {
             // update technicians
-            
+            let dataTech = {  
+                technicianRateMode: mode,
+                technicianRate: rate,
+                id: strapiTechID
+            }
+            api.put(`${VFixBackendURL}/technicians`, dataTech)
+            .then(result => {
+                setOpen(false)
+            })
+            .catch(console.log)
         }
     }
 
