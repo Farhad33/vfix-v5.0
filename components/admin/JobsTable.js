@@ -7,6 +7,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Zoom, Button, Tooltip as MUITooltip } from '@mui/material';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { tooltipClasses } from '@mui/material/Tooltip';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 
 
@@ -38,7 +39,12 @@ export default function JobsTable({ jobs }) {
       return sideTech.length ? <GrayCell>{reimbursement}</GrayCell> : <div>{reimbursement}</div>
     } },
     { field: 'sideTech', headerName: 'Side Technician', width: 130, editable: true },
-    { field: 'finalPay', headerName: 'Technician Final Payout', width: 130 },
+    { field: 'finalPay', headerName: 'Technician Final Payout', width: 130, renderCell: ({row: {finalPay, isPaid}}) => (
+      isPaid ? 
+      <FinalPay color='green'><CheckCircleOutlineIcon />${finalPay}</FinalPay> 
+      : 
+      <FinalPay color='red'><HighlightOffIcon/>${finalPay}</FinalPay>
+    ) },
     { field: 'tooltip', headerName: '', width: 10, renderCell: CustomCellTooltip}
 
   ];
@@ -118,14 +124,14 @@ const CustomCellTooltip = ({ id, row: { isPaid }})   => {
                     variant="outlined"
                     onClick={handleSubmit}
                   >
-                    <CheckCircleOutlineIcon sx={{marginRight: 1,}}/> Mark as Unpaid
+                    <HighlightOffIcon /> Mark as Unpaid
                   </Button>
                   :
                   <Button 
                     variant="contained"
                     onClick={handleSubmit}
                   >
-                    <CheckCircleOutlineIcon sx={{marginRight: 1,}}/> Mark as Paid
+                    <CheckCircleOutlineIcon /> Mark as Paid
                   </Button>
               }
               </TooltipTitle>
@@ -141,5 +147,16 @@ const TooltipTitle = styled.div`
   button {
     width: 100%;
     margin-bottom: 10px;
+    svg {
+      margin-right: 5px;
+    }
+  }
+`
+const FinalPay = styled.p`
+  display: flex;
+  color: ${({color}) => color};
+  svg {
+    font-size: 1.1rem;
+    margin-right: 5px;
   }
 `
