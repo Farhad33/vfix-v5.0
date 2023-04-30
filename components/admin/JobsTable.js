@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { DataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
 import { api, VFixBackendURL } from '../../utility/api'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import {Zoom,Box, Button, Tooltip as MUITooltip} from '@mui/material';
+
+
 
 export default function JobsTable({ jobs }) {
   
@@ -32,6 +38,36 @@ export default function JobsTable({ jobs }) {
     } },
     { field: 'sideTech', headerName: 'Side Technician', width: 130, editable: true },
     { field: 'finalPay', headerName: 'Technician Final Payout', width: 130 },
+    { field: 'tooltip', headerName: '', width: 80, renderCell: ()   => { return (
+      <Tooltip
+        TransitionComponent={Zoom}
+        //PopperProps={{ disablePortal: true }}
+        // onClose={handleTooltipClose}
+        open={open}
+        disableFocusListener
+        disableHoverListener
+        disableTouchListener
+        title={
+          <BoxToolTip>
+            <Button 
+              variant="contained" 
+              sx={{width: 300, backgroundColor: '#4971FF'}}
+            >
+              <CheckCircleOutlineIcon sx={{marginRight: 1,}}/> Mark as Paid
+            </Button>
+            <Button 
+              variant="contained" 
+              sx={{width: 300, backgroundColor: '#4971FF'}}
+            >
+              <CheckCircleOutlineIcon sx={{marginRight: 1,}}/> Mark as Paid
+            </Button>
+
+        </BoxToolTip>
+      } placement='left'>
+          <MoreVertIcon />
+      </Tooltip>
+    )}}
+
   ];
 
     return (
@@ -63,6 +99,30 @@ const JobsContainer = styled.div`
 `
 const GrayCell = styled.div`
   color: lightgray;
+`
+
+const BoxToolTip = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #FFFFFF;
+  width: 400px;
+  height: 180px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+`
+
+const Tooltip = styled(MUITooltip)`
+  background-color: white;
+  z-index: 100000;
+`
+
+const DeletBtn = styled.div`
+`
+
+const TechBtn = styled.div`
 `
 
 
