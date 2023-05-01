@@ -13,8 +13,6 @@ import TechCompensation from './TechCompensation'
 
 
 export default function JobsTable({ jobs }) {
-  console.log('jobs =>',jobs);
-  
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
