@@ -61,7 +61,10 @@ export default function Menu({ setJobs }) {
         return hours * 60 + minutes;
     }
     
-    const calculateFinalPay = ({technicianRateMode, technicianRate=0, totalHour=0, cash=0, reimbursement=0, jobPrice=0}) => {
+    const calculateFinalPay = ({technicianRateMode, technicianRate=0, totalHour=0, cash=0, reimbursement=0, jobPrice=0, sideTech}) => {
+        if (sideTech.length > 0) {
+            return Number(sideTech)
+        }
         let finalPayment = 0
         const hours = convertToMinutes(totalHour)
         const rate = Number(technicianRate) / 60

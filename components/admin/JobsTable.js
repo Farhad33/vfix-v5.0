@@ -13,6 +13,7 @@ import TechCompensation from './TechCompensation'
 
 
 export default function JobsTable({ jobs }) {
+  console.log('jobs =>',jobs);
   
 
   const columns = [
