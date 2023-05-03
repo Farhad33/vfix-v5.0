@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { DataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
+import { DataGrid as MUIDataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
 import { api, VFixBackendURL } from '../../utility/api'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -83,6 +83,16 @@ export default function JobsTable({ jobs }) {
 }
 
 const JobsContainer = styled.div`
+  margin: 0 50px;
+  background-color: #ffffff;
+`
+const DataGrid = styled(MUIDataGrid)`
+  .MuiDataGrid-columnHeaderTitle {
+    white-space: normal;
+    line-height: normal;
+    /* display: flex;
+    flex-wrap: wrap; */
+  }
 `
 const GrayCell = styled.div`
   color: lightgray;

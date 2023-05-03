@@ -19,4 +19,5 @@ export default function Admin() {
 }
 
 const AdminContainer = styled.div`
+    background-color: #D8DEE2;
 `

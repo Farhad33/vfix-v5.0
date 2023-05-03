@@ -5,7 +5,7 @@ import useFetch from '../../utility/hooks/useFetch'
 import { api, VFixBackendURL } from '../../utility/api'
 
 import dayjs from 'dayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker as MUIDatePicker } from '@mui/x-date-pickers/DatePicker';
 
@@ -116,68 +116,91 @@ export default function Menu({ setJobs }) {
 
     return (
         <Header>
-            <Logo src='assets/logo/VFix-logo-larg.svg' />
-            <TechnicianForm onSubmit={handleSearchSubmit}>
-                    <FormControl>
-                        <InputLabel>Technician</InputLabel>
-                        <Select
-                            value={selectedTech}
-                            label="Technician"
-                            onChange={handleTechChange}
-                        >
-                            {data.map(({attributes:{technicianName}, id}, index) => (
-                                <MenuItem key={id} value={id}>{technicianName}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                        label="From"
-                        value={dateFrom}
-                        onChange={(newValue) => setDateFrom(newValue)}
-                    />
-                    <DatePicker
-                        label="To"
-                        value={dateTo}
-                        onChange={(newValue) => setDateTo(newValue)}
-                    />
-                </LocalizationProvider>
-                <SearchButton type='submit' variant="contained">Search</SearchButton>
-            </TechnicianForm>
+            <HeaderContainer>
+                <Logo src='assets/logo/VFix-logo-larg.svg' />
+                <TechnicianForm onSubmit={handleSearchSubmit}>
+                        <FormControl>
+                            <InputLabel>Technician</InputLabel>
+                            <Select
+                                value={selectedTech}
+                                label="Technician"
+                                onChange={handleTechChange}
+                            >
+                                {data.map(({attributes:{technicianName}, id}, index) => (
+                                    <MenuItem key={id} value={id}>{technicianName}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                            label="From"
+                            value={dateFrom}
+                            onChange={(newValue) => setDateFrom(newValue)}
+                        />
+                        <DatePicker
+                            label="To"
+                            value={dateTo}
+                            onChange={(newValue) => setDateTo(newValue)}
+                        />
+                    </LocalizationProvider>
+                    <SearchButton type='submit' variant="contained">Search</SearchButton>
+                </TechnicianForm>
+            </HeaderContainer>
         </Header>
     )
 }
 
 const Header = styled.header`
+       background-color: #242F3F;
+
+`
+
+const HeaderContainer = styled.div`
     display: grid;
-    padding: 20px;
+    padding: 60px 0;
     font-size: 14px;
-    grid-template-columns: 10% 90% ;
+    grid-template-columns: 15% 85% ;
     align-items: center;
 `
 const Logo = styled.img`
 	cursor: pointer;
 	width: 10em;
 	height: 5em;
+    margin: 0 auto;
 `
 const TechnicianForm = styled.form`
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: 35% 15.5% 15.5% 15%;
+    justify-content: center;   
+
     label {
         display: flex;
         align-items: center;
         font-size: 18px;
         font-weight: 500;
+        color: #ffffff;
+    }
+    .MuiSelect-select {
+        color: #ffffff;
     }
     .MuiFormControl-root {
         min-width: 200px;
         max-width: 300px;
+        background-color: #2c3543;
+    }
+    button {
+        margin-left: 25px;
     }
 `
 const DatePicker = styled(MUIDatePicker)`
     .MuiInputBase-root {
         max-width: 200px;
         height: 56px;
+        color: #ffffff;
+    }
+    svg {
+        color: #ffffff
     }
     margin: 0 10px !important;
 `
