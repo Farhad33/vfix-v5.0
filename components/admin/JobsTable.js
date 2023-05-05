@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { DataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
+import { DataGrid as MUIDataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
 import { api, VFixBackendURL } from '../../utility/api'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -58,7 +58,9 @@ export default function JobsTable({ jobs }) {
                 pageSize={5}
                 rowsPerPageOptions={[5]}
                 checkboxSelection
-                getRowHeight={() => 'auto'}
+                getRowHeight={({ id, densityFactor }) => {
+                  return 70 * densityFactor;
+                }}
                 onCellEditStop={(params, event) => {
                   if (params.reason === GridCellEditStopReasons.tabKeyDown || params.reason === GridCellEditStopReasons.enterKeyDown) {
                     let data = { 
@@ -83,6 +85,16 @@ export default function JobsTable({ jobs }) {
 }
 
 const JobsContainer = styled.div`
+  position: relative;
+  bottom: 57px;
+  margin: 0 50px;
+  background-color: #ffffff;
+`
+const DataGrid = styled(MUIDataGrid)`
+  .MuiDataGrid-columnHeaderTitle {
+    white-space: normal;
+    line-height: normal;
+  }
 `
 const GrayCell = styled.div`
   color: lightgray;

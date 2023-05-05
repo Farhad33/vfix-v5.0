@@ -13,10 +13,12 @@ export default function Admin() {
     return (
         <AdminContainer>
             <Menu setJobs={setJobs} />
-            <JobsTable jobs={jobs} />
+            { jobs.length ? <JobsTable jobs={jobs} /> : '' }
         </AdminContainer>
     )
 }
 
 const AdminContainer = styled.div`
+    background-color: #D8DEE2;
+    min-height: 100vh;
 `
