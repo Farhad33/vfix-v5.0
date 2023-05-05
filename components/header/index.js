@@ -15,7 +15,7 @@ export default function Header({ overlay, toggelOverlay }) {
 
 	return (
 		<Container>
-			<Logo src='assets/logo/VFix-Logo.svg' />
+			<Logo src='assets/logo/VFIX-logo-White.png' />
 			<Nav ham={ ham }>
 				<NavItem href="/#services">Services</NavItem>
 				<NavItem href="/articles">Articles</NavItem>

@@ -12,7 +12,7 @@ export default function Services() {
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error :(</p>
 
-
+    // href={`${baseURL}/service/${id}`}
     return (
         <Container>
             <OverlapServices />
@@ -22,7 +22,7 @@ export default function Services() {
             <TabContainer>
                 <TabItems>
                     {data.map(({id, attributes: {title, description, thumbnail}}) => (
-                        <Item key={id} href={`${baseURL}/service/${id}`}>
+                        <Item key={id} >
                             <h2>{title}</h2>
                             <p>{description}</p>
                             <img src={`https://strapi.myvfix.com${thumbnail.data.attributes.url}`} />
