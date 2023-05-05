@@ -116,52 +116,48 @@ export default function Menu({ setJobs }) {
 
     return (
         <Header>
-            <HeaderContainer>
-                <Logo src='assets/logo/VFix-logo-larg.svg' />
-                <TechnicianForm onSubmit={handleSearchSubmit}>
-                        <FormControl>
-                            <InputLabel>Technician</InputLabel>
-                            <Select
-                                value={selectedTech}
-                                label="Technician"
-                                onChange={handleTechChange}
-                            >
-                                {data.map(({attributes:{technicianName}, id}, index) => (
-                                    <MenuItem key={id} value={id}>{technicianName}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                            label="From"
-                            value={dateFrom}
-                            onChange={(newValue) => setDateFrom(newValue)}
-                        />
-                        <DatePicker
-                            label="To"
-                            value={dateTo}
-                            onChange={(newValue) => setDateTo(newValue)}
-                        />
-                    </LocalizationProvider>
-                    <SearchButton type='submit' variant="contained">Search</SearchButton>
-                </TechnicianForm>
-            </HeaderContainer>
+            <Logo src='assets/logo/VFix-logo-larg.svg' />
+            <TechnicianForm onSubmit={handleSearchSubmit}>
+                    <FormControl>
+                        <InputLabel>Technician</InputLabel>
+                        <Select
+                            value={selectedTech}
+                            label="Technician"
+                            onChange={handleTechChange}
+                        >
+                            {data.map(({attributes:{technicianName}, id}, index) => (
+                                <MenuItem key={id} value={id}>{technicianName}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        label="From"
+                        value={dateFrom}
+                        onChange={(newValue) => setDateFrom(newValue)}
+                    />
+                    <DatePicker
+                        label="To"
+                        value={dateTo}
+                        onChange={(newValue) => setDateTo(newValue)}
+                    />
+                </LocalizationProvider>
+                <SearchButton type='submit' variant="contained">Search</SearchButton>
+            </TechnicianForm>
         </Header>
     )
 }
 
 const Header = styled.header`
-       background-color: #242F3F;
-
-`
-
-const HeaderContainer = styled.div`
+    background-color: #242F3F;
     display: grid;
-    padding: 60px 0;
+    padding: 30px 5px 80px 5px;
     font-size: 14px;
     grid-template-columns: 15% 85% ;
     align-items: center;
 `
+
+
 const Logo = styled.img`
 	cursor: pointer;
 	width: 10em;
@@ -169,7 +165,6 @@ const Logo = styled.img`
     margin: 0 auto;
 `
 const TechnicianForm = styled.form`
-    /* display: flex; */
     display: grid;
     grid-template-columns: 35% 15.5% 15.5% 15%;
     justify-content: center;   
@@ -182,6 +177,9 @@ const TechnicianForm = styled.form`
         color: #ffffff;
     }
     .MuiSelect-select {
+        color: #ffffff;
+    }
+    svg {
         color: #ffffff;
     }
     .MuiFormControl-root {
