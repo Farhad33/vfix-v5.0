@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from 'styled-components'
 import Markdown from "../common/Markdown";
 import { default as Button } from '../common/BookButton'
-import { api } from '../../utility/hooks/useFetch'
+import { api, VFixBackendURL } from '../utility/api'
 
 export default function ServiceDetail({ id }) {
     const [data,  setData] = useState({})

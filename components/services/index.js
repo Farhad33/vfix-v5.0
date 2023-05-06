@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import useFetch from '../../utility/hooks/useFetch'
+import useFetch from '../utility/hooks/useFetch'
 
 
 export default function Services() {

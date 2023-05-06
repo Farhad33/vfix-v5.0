@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import useFetch from '../../utility/hooks/useFetch'
-import { api, VFixBackendURL } from '../../utility/api'
+import useFetch from '../utility/hooks/useFetch'
+import { api, VFixBackendURL } from '../utility/api'
 
 import dayjs from 'dayjs';
 import { LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';

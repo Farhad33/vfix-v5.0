@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { DataGrid as MUIDataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
-import { api, VFixBackendURL } from '../../utility/api'
+import { api, VFixBackendURL } from '../utility/api'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Zoom, Button, Tooltip as MUITooltip } from '@mui/material';

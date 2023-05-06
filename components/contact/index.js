@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { VFixBackendURL } from '../../utility/api'
+import { VFixBackendURL } from '../utility/api'
 
 export default function Contact() {
     const [ name, setName ] = useState('')
