@@ -113,11 +113,29 @@ export default function Menu({ setJobs }) {
             sum.reimbursement = sum.reimbursement += Number(job.reimbursement)
             sum.hours = sum.hours += Number(convertToMinutes(job.totalHour))
             return job
-            })
+        })
+        
+        
         sum.hours = toHoursAndMinutes(sum.hours)
         sum.finalPay = sum.finalPay.toFixed(2)
-
+        
         jobs = Object.assign(jobs,sum)
+
+        jobs.push({
+            id: -1,
+            isPaid: false,
+            reimbursement: sum.reimbursement,
+            sideTech: '',
+            technicianRate: '',
+            technicianRateMode: '',
+            serviceType: 'Total',
+            jobPrice: '',
+            jobDate: '',
+            jobHour: '',
+            totalHour: sum.hours,
+            cash: sum.cash,
+            finalPay: sum.finalPay,
+        })
     return jobs
 }
 
