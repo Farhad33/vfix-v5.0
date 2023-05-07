@@ -79,7 +79,11 @@ export default function Menu({ setJobs }) {
         return finalPayment
     }
 
-
+    function toHoursAndMinutes(totalMinutes) {
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        return `${hours}:${minutes}`;
+    }
     const jobsSelector = (data=[]) => {
         var sum = {
             cash: 0,
@@ -110,6 +114,9 @@ export default function Menu({ setJobs }) {
             sum.hours = sum.hours += Number(convertToMinutes(job.totalHour))
             return job
             })
+        sum.hours = toHoursAndMinutes(sum.hours)
+        sum.finalPay = sum.finalPay.toFixed(2)
+
         jobs = Object.assign(jobs,sum)
     return jobs
 }
