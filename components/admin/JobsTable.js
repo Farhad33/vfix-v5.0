@@ -71,15 +71,6 @@ export default function JobsTable({ jobs }) {
                   }
                 }}
             />
-          <TotallContainer>
-            <span></span>
-            <h2>Totall</h2>
-            <h4>{jobs.hours}</h4>
-            <h4>${jobs.cash}</h4>
-            <h4>${jobs.reimbursement} </h4>
-            <h4>${jobs.finalPay}</h4>
-            <span></span>
-          </TotallContainer>
         </JobsContainer>
     )
 }
@@ -89,7 +80,42 @@ const JobsContainer = styled.div`
   bottom: 57px;
   margin: 0 50px;
   background-color: #ffffff;
+
+  .MuiDataGrid-row--lastVisible {
+    .MuiDataGrid-cell {
+      :nth-child(1) {
+        visibility: hidden;
+      }
+      :nth-child(2) {
+        visibility: hidden;
+      }
+      :nth-child(3) {
+        visibility: hidden;
+      }
+      :nth-child(4), :nth-child(6), :nth-child(8), :nth-child(9), :nth-child(11) {
+        font-weight: 600;
+        font-size: 18px;
+        text-align: center;
+      }
+      :nth-child(11) {
+        p {
+          color: black;
+        }
+        svg {
+          display: none;
+        }
+      }
+      :nth-child(12) {
+        visibility: hidden;
+      }
+      :nth-child(5) {
+        visibility: hidden;
+      }
+    }
+  }
+
 `
+
 const DataGrid = styled(MUIDataGrid)`
   .MuiDataGrid-columnHeaderTitle {
     white-space: normal;
@@ -199,9 +225,4 @@ const FinalPay = styled.p`
     font-size: 1.1rem;
     margin-right: 5px;
   }
-`
-
-const TotallContainer = styled.div`
-  display: grid;
-  grid-template-columns: 5% 20% 14% 6% 17% 10% 25%;
 `

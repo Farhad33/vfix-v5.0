@@ -119,8 +119,6 @@ export default function Menu({ setJobs }) {
         sum.hours = toHoursAndMinutes(sum.hours)
         sum.finalPay = sum.finalPay.toFixed(2)
         
-        jobs = Object.assign(jobs,sum)
-
         jobs.push({
             id: -1,
             isPaid: false,
