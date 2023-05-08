@@ -29,7 +29,7 @@ export default function JobsTable({ jobs }) {
       return (<div>{rateAndSign}</div>)
     } },
     { field: 'serviceType', headerName: 'Service Type', width: 130 },
-    { field: 'startEnd', headerName: 'Job Start/End/Date/Time', width: 145, renderCell: (params) => {
+    { field: 'startEnd', headerName: 'Job Date\nTime Start - Stop', width: 145, renderCell: (params) => {
       return (
         <div>
           <div>{params.row.jobDate}</div>
@@ -154,7 +154,7 @@ const JobsContainer = styled.div`
 
 const DataGrid = styled(MUIDataGrid)`
   .MuiDataGrid-columnHeaderTitle {
-    white-space: normal;
+    white-space: break-spaces;
     line-height: normal;
   }
 `
