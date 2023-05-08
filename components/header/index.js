@@ -18,7 +18,6 @@ export default function Header({ overlay, toggelOverlay }) {
 			<Logo src='assets/logo/VFIX-logo-White.png' />
 			<Nav ham={ ham }>
 				<NavItem href="/#services">Services</NavItem>
-				<NavItem href="/articles">Articles</NavItem>
 				<NavItem href="/#contactus" >Contact Us</NavItem>
 				<NavItem href="tel:8559558349">(855) 955-8349</NavItem>
 			</Nav>
