@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import styled from 'styled-components'
-import { DataGrid as MUIDataGrid, GridCellEditStopReasons } from '@mui/x-data-grid';
 import { api, VFixBackendURL } from '../utility/api'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -9,10 +8,18 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { tooltipClasses } from '@mui/material/Tooltip';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import TechCompensation from './TechCompensation'
-
+import {
+  DataGrid as MUIDataGrid,
+  GridCellEditStopReasons,
+  GridToolbarContainer,
+  GridToolbarExport,
+  GridToolbarDensitySelector,
+} from '@mui/x-data-grid';
+import { NextResponse } from 'next/dist/server/web/spec-extension/response';
 
 
 export default function JobsTable({ jobs }) {
+  const selectedRows = useRef([])
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -46,18 +53,47 @@ export default function JobsTable({ jobs }) {
       <FinalPay color='red'><HighlightOffIcon/>${finalPay}</FinalPay>
     ) },
     // tooltip
-    { field: 'tooltip', headerName: '', width: 10, renderCell: CustomCellTooltip}
+    { field: 'tooltip', headerName: 'tooltip', width: 10, renderCell: CustomCellTooltip}
 
   ];
+
+  const CustomToolbar = () => (
+    <GridToolbarContainer>
+      <GridToolbarDensitySelector />
+      <GridToolbarExport />
+      <Button variant='text' onClick={handleMarkAsPaid}>Mark as paid for selected jobs</Button>
+    </GridToolbarContainer>
+  )
+
+  const handleMarkAsPaid = () => {
+    let newArray = selectedRows.current
+    if(newArray[newArray.length -1] === -1) {
+      newArray.pop()
+    }
+    newArray.forEach(id => {
+      let data = {  
+        isPaid: true,
+        id
+      }
+      api.put(`${VFixBackendURL}/job-technicians`, data)
+      .catch(console.log)
+    })
+  }
 
     return (
         <JobsContainer>
             <DataGrid
                 rows={jobs}
                 columns={columns}
+                slots={{
+                  toolbar: CustomToolbar,
+                }}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
                 checkboxSelection
+                onRowSelectionModelChange={(newRowSelectionModel) => {
+                  selectedRows.current = newRowSelectionModel
+                }}
                 getRowHeight={({ id, densityFactor }) => {
                   return 70 * densityFactor;
                 }}
