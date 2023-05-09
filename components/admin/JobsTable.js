@@ -210,8 +210,9 @@ const CustomCellTooltip = ({ id, row: { isPaid, technicianRate, technicianRateMo
               <TooltipTitle>
                 {hasItPaid ?
                   <Button 
-                    variant="outlined"
+                    variant="contained"
                     onClick={handleSubmit}
+                    color="success"
                   >
                     <HighlightOffIcon /> Mark as Unpaid
                   </Button>
@@ -219,6 +220,7 @@ const CustomCellTooltip = ({ id, row: { isPaid, technicianRate, technicianRateMo
                   <Button 
                     variant="contained"
                     onClick={handleSubmit}
+                    color="error"
                   >
                     <CheckCircleOutlineIcon /> Mark as Paid
                   </Button>
