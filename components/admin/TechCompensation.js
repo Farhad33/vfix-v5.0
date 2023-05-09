@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components'
 import { api, VFixBackendURL } from '../utility/api'
+import { authAPI } from '../utility/api'
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -14,7 +15,7 @@ import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function TechCompensation({ open, setOpen, technicianRate, technicianRateMode, id, strapiTechID }) {
+export default function TechCompensation({ open, setOpen, technicianRate, technicianRateMode, id, strapiTechID, jobs, setJobs }) {
     const [mode, setMode] = useState(technicianRateMode);
     const [rate, setRate] = useState(technicianRate);
     const [futureJobs, setFutureJobs] = useState(false);
@@ -27,7 +28,7 @@ export default function TechCompensation({ open, setOpen, technicianRate, techni
             technicianRate: rate,
             id
         }
-        api.put(`${VFixBackendURL}/job-technicians`, dataJobTech)
+        authAPI().put(`/job-technicians`, dataJobTech)
         .then(result => {
             setOpen(false)
         })
@@ -41,7 +42,7 @@ export default function TechCompensation({ open, setOpen, technicianRate, techni
                 technicianRate: rate,
                 id: strapiTechID
             }
-            api.put(`${VFixBackendURL}/technicians`, dataTech)
+            authAPI().put(`/technicians`, dataTech)
             .then(result => {
                 setOpen(false)
             })

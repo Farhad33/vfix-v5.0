@@ -15,7 +15,6 @@ const isBrowser = typeof window !== 'undefined';
 const getToken = () => {
     if(isBrowser) {
         let jwt = sessionStorage.getItem("jwt");
-        console.log('jwt => ', jwt);
         return `bearer ${jwt}`
     }
     return `bearer `

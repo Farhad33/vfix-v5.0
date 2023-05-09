@@ -39,10 +39,8 @@ export default function Menu({ setJobs }) {
             const to = dayjs(dateTo).add(1, 'day').format('YYYY-MM-DD')
             authAPI().get(`/jobs/technicians/${selectedTech}/${from}/${to}`)
             .then(result => {
-                console.log('result.data.data => ', result.data.data);
                 const jobs = jobsSelector(result?.data?.data || [])
                 setJobs(jobs)
-                console.log('jobs => ', jobs);
             })
             .catch(console.log)
         }
