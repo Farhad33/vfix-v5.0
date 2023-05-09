@@ -6,9 +6,18 @@ import styled from 'styled-components'
 import Menu from './Menu'
 import JobsTable from './JobsTable';
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Admin() {
     const [jobs, setJobs] = useState([])
+    const router = useRouter()
+
+    useEffect(() => {
+        let jwt = sessionStorage.getItem("jwt");
+        if (!jwt) {
+            router.push('/login')
+        }
+    }, [])
 
     return (
         <AdminContainer>

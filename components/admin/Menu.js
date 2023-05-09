@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useRouter } from 'next/router'
-import useFetch from '../utility/hooks/useFetch'
-import { api, VFixBackendURL } from '../utility/api'
+import { authAPI, VFixBackendURL } from '../utility/api'
 
 import dayjs from 'dayjs';
 import { LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
@@ -21,31 +19,25 @@ export default function Menu({ setJobs }) {
     const now = dayjs()
     const [dateFrom, setDateFrom] = useState(oneWeekAgo)
     const [dateTo, setDateTo] = useState(now)
-    const router = useRouter()
     const [selectedTech, setSelectedTech] = useState('');
+    const [techs, setTechs] = useState([])
 
     const handleTechChange = (event) => {
         setSelectedTech(event.target.value + '');
     };
 
     useEffect(() => {
-        let jwt = sessionStorage.getItem("jwt");
-        if (!jwt) {
-            router.push('/login')
-        }
+        authAPI().get('/technicians')
+        .then(result => setTechs(result.data.data) )
+        .catch(console.log)
     }, [])
-
-    const { loading, error, data } = useFetch(`${VFixBackendURL}/technicians`);
-
-    if(loading) return 'loading'
-    if(error) return 'error'
 
     const handleSearchSubmit = (event) => {
         event.preventDefault()
         if (selectedTech.length) {
             const from = dayjs(dateFrom).format('YYYY-MM-DD')
             const to = dayjs(dateTo).add(1, 'day').format('YYYY-MM-DD')
-            api.get(`${VFixBackendURL}/jobs/technicians/${selectedTech}/${from}/${to}`)
+            authAPI().get(`/jobs/technicians/${selectedTech}/${from}/${to}`)
             .then(result => {
                 console.log('result.data.data => ', result.data.data);
                 const jobs = jobsSelector(result?.data?.data || [])
@@ -137,6 +129,8 @@ export default function Menu({ setJobs }) {
     return jobs
 }
 
+    if(!techs.length) return <div>Loading</div>
+    
     return (
         <Header>
             <Logo src='assets/logo/VFix-logo-larg.svg' />
@@ -148,7 +142,7 @@ export default function Menu({ setJobs }) {
                             label="Technician"
                             onChange={handleTechChange}
                         >
-                            {data.map(({attributes:{technicianName}, id}, index) => (
+                            {techs?.map(({attributes:{technicianName}, id}, index) => (
                                 <MenuItem key={id} value={id}>{technicianName}</MenuItem>
                             ))}
                         </Select>

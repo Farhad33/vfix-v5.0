@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import styled from 'styled-components'
-import { api, VFixBackendURL } from '../utility/api'
+import { authAPI } from '../utility/api'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Zoom, Button, Tooltip as MUITooltip } from '@mui/material';
@@ -15,7 +15,6 @@ import {
   GridToolbarExport,
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
-import { NextResponse } from 'next/dist/server/web/spec-extension/response';
 
 
 export default function JobsTable({ jobs }) {
@@ -75,7 +74,7 @@ export default function JobsTable({ jobs }) {
         isPaid: true,
         id
       }
-      api.put(`${VFixBackendURL}/job-technicians`, data)
+      authAPI().put(`/job-technicians`, data)
       .catch(console.log)
     })
   }
@@ -103,7 +102,7 @@ export default function JobsTable({ jobs }) {
                       [params.field]: event.target.value,
                       id: params.id
                     }
-                    api.put(`${VFixBackendURL}/job-technicians`, data)
+                    authAPI().put(`/job-technicians`, data)
                   }
                 }}
             />
@@ -183,7 +182,7 @@ const CustomCellTooltip = ({ id, row: { isPaid, technicianRate, technicianRateMo
       isPaid: !hasItPaid,
       id
     }
-    api.put(`${VFixBackendURL}/job-technicians`, data)
+    authAPI().put(`/job-technicians`, data)
     .then(result => {
       setHasItPaid(!hasItPaid)
     })
