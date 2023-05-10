@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
+import { Button, TextField as MUITextField } from '@mui/material';
 
 
 
@@ -30,11 +31,8 @@ export default function Login() {
             router.push('/admin')
         })
         .catch(error => {
-            // Handle error.
             console.log('An error occurred:', error.response);
         });
-
-
     }
 
     return (
@@ -44,19 +42,24 @@ export default function Login() {
                 <Title>Welcome Back</Title>    
                 <SubTitle>Enter your credentials to access your account</SubTitle>    
                 <Form onSubmit={handleOnSubmit}>
-                    <TextField 
+                    <TextField
+                        variant="outlined"
                         type="text" 
-                        placeholder="Enter Your Username" 
+                        label="Username" 
                         onChange={(e) => setUsername(e.target.value) }
                         value={username}
                     />
-                    <TextField 
+                    <TextField
+                        variant="outlined" 
                         type="password" 
-                        placeholder="Enter Your Password" 
+                        label="Password" 
                         onChange={(e) => setPassword(e.target.value) }
                         value={password} 
                     />
-                    <SignIn type="submit" value="Sign In" />
+                    <SignIn
+                        type="submit"
+                        variant="contained"
+                    >Sign In</SignIn>
                 </Form>
             </FormContainer>
         </Background>        
@@ -85,24 +88,22 @@ const Logo = styled.img`
 	width: 10em;
 `
 const Title = styled.h1`
-    margin: 15px;
+    margin-bottom: 15px ;
 `
 const SubTitle = styled.h3`
     margin-bottom: 20px;
+    font-weight: 400;
 `
 const Form = styled.form`
     display: flex;
     align-items: center;
     flex-direction: column;
 `
-const TextField = styled.input`
+const TextField = styled(MUITextField)`
     width: 400px;
-    margin-bottom: 20px;
-    padding: 10px;
-    `
-const SignIn = styled.input`
-    padding: 10px;
+    margin-bottom: 20px !important;
+`
+const SignIn = styled(Button)`
     width: 400px;
-    background-color: #2c9cff;
-    color: white;
+    padding: 16px !important;
 `
