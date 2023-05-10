@@ -210,7 +210,6 @@ const TechnicianForm = styled.form`
 `
 const DatePicker = styled(MUIDatePicker)`
     .MuiInputBase-root {
-        max-width: 200px;
         height: 56px;
         color: #ffffff;
     }
