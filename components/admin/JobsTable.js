@@ -39,10 +39,10 @@ export default function JobsTable({ jobs }) {
     { field: 'totalHour', headerName: 'Total Hours Worked', width: 130 },
     { field: 'jobPrice', headerName: 'Final price of the job', width: 130, renderCell: ({row: {jobPrice}}) =>`$${jobPrice}` },
     { field: 'cash', headerName: 'Cash Received By Technician', width: 130, renderCell: ({row: {sideTech, cash}}) => {
-      return sideTech.length ? <GrayCell>{cash}</GrayCell> : <div>${cash}</div>
+      return sideTech.length ? <GrayCell>${cash}</GrayCell> : <div>${cash}</div>
     } },
     { field: 'reimbursement', headerName: 'Technician Reimbursment', width: 130, editable: true, renderCell: ({row: {sideTech, reimbursement}}) => {
-      return sideTech.length ? <GrayCell>{reimbursement}</GrayCell> : <div>${reimbursement}</div>
+      return sideTech.length ? <GrayCell>${reimbursement}</GrayCell> : <div>${reimbursement}</div>
     } },
     { field: 'sideTech', headerName: 'Side Technician', width: 130, editable: true, renderCell: ({row: {sideTech}}) => `$${sideTech}`},
     { field: 'finalPay', headerName: 'Technician Final Payout', width: 130, renderCell: ({row: {finalPay, isPaid}}) => (
