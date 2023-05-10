@@ -72,7 +72,9 @@ export default function Menu({ setJobs }) {
     function toHoursAndMinutes(totalMinutes) {
         const hours = Math.floor(totalMinutes / 60);
         const minutes = totalMinutes % 60;
-        return `${hours}:${minutes}`;
+        const addZeroHours = hours < 10 ? `0${hours}` : `${hours}`;
+        const addZeroMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+        return `${addZeroHours}:${addZeroMinutes}`;
     }
     const jobsSelector = (data=[]) => {
         var sum = {
