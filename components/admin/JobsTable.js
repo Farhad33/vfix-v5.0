@@ -37,14 +37,14 @@ export default function JobsTable({ jobs }) {
       )
     } },
     { field: 'totalHour', headerName: 'Total Hours Worked', width: 130 },
-    { field: 'jobPrice', headerName: 'Final price of the job', width: 130 },
+    { field: 'jobPrice', headerName: 'Final price of the job', width: 130, renderCell: ({row: {jobPrice}}) =>`$${jobPrice}` },
     { field: 'cash', headerName: 'Cash Received By Technician', width: 130, renderCell: ({row: {sideTech, cash}}) => {
-      return sideTech.length ? <GrayCell>{cash}</GrayCell> : <div>{cash}</div>
+      return sideTech.length ? <GrayCell>{cash}</GrayCell> : <div>${cash}</div>
     } },
     { field: 'reimbursement', headerName: 'Technician Reimbursment', width: 130, editable: true, renderCell: ({row: {sideTech, reimbursement}}) => {
-      return sideTech.length ? <GrayCell>{reimbursement}</GrayCell> : <div>{reimbursement}</div>
+      return sideTech.length ? <GrayCell>{reimbursement}</GrayCell> : <div>${reimbursement}</div>
     } },
-    { field: 'sideTech', headerName: 'Side Technician', width: 130, editable: true },
+    { field: 'sideTech', headerName: 'Side Technician', width: 130, editable: true, renderCell: ({row: {sideTech}}) => `$${sideTech}`},
     { field: 'finalPay', headerName: 'Technician Final Payout', width: 130, renderCell: ({row: {finalPay, isPaid}}) => (
       isPaid ? 
       <FinalPay color='green'><CheckCircleOutlineIcon />${finalPay}</FinalPay> 
@@ -115,6 +115,8 @@ const JobsContainer = styled.div`
   bottom: 57px;
   margin: 0 50px;
   background-color: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
 
   .MuiDataGrid-row--lastVisible {
     .MuiDataGrid-cell {
@@ -144,6 +146,12 @@ const JobsContainer = styled.div`
         visibility: hidden;
       }
       :nth-child(5) {
+        visibility: hidden;
+      }
+      :nth-child(7) {
+        visibility: hidden;
+      }
+      :nth-child(10) {
         visibility: hidden;
       }
     }
