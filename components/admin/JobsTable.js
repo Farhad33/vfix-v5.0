@@ -120,6 +120,7 @@ const JobsContainer = styled.div`
 
   .MuiDataGrid-row--lastVisible {
     .MuiDataGrid-cell {
+      border-bottom: 0;
       :nth-child(1) {
         visibility: hidden;
       }
