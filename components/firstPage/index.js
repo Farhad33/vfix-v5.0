@@ -9,6 +9,11 @@ export default function FirstPage() {
 	const toggelOverlay = () => {
     setOverlay(!overlay)
   }
+
+  // useEffect(() => {
+  //   hotjar.initialize(3018417, 6)
+  // }, [])
+
   return (
     <Container>
       <Header toggelOverlay={ toggelOverlay } overlay={ overlay }/>

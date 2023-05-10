@@ -40,7 +40,7 @@ export default function Login() {
     return (
         <Background>
             <FormContainer>
-                <Logo src='assets/logo/VFix-Logo-larg.svg' />
+                <Logo src='assets/logo/VFIX-Circle-logo.png' />
                 <Title>Welcome Back</Title>    
                 <SubTitle>Enter your credentials to access your account</SubTitle>    
                 <Form onSubmit={handleOnSubmit}>
@@ -83,7 +83,6 @@ const FormContainer = styled.div`
 const Logo = styled.img`
 	cursor: pointer;
 	width: 10em;
-	height: 5em;
 `
 const Title = styled.h1`
     margin: 15px;
