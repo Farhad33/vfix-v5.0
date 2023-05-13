@@ -16,7 +16,6 @@ export default function Service({ id }) {
             .catch(error => console.log('error => ', error))
         }
     }, [id])
-    console.log("DATA",data);
     return (
         <Container>    
             <ServiceContainer>
@@ -48,9 +47,6 @@ export default function Service({ id }) {
 
 const Container = styled.div`
     display: flex;
-    /* display: grid; */
-    /* grid-template-columns: 20% 50% 30%;
-    gap: 30px; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
