@@ -15,7 +15,7 @@ export default function Header({ overlay, toggelOverlay }) {
 
 	return (
 		<Container>
-			<Logo src='assets/logo/VFIX-logo-White.png' />
+			<Logo width={160} height={80} src='assets/logo/VFIX-logo-White.png' />
 			<Nav ham={ ham }>
 				<NavItem href="/#services">Services</NavItem>
 				<NavItem href="/#contactus" >Contact Us</NavItem>
@@ -95,6 +95,6 @@ const NavItem = styled.a`
 
 const Logo = styled.img`
 	cursor: pointer;
-	width: 10em;
-	height: 5em;
+	width: ${({width}) => width}px;
+	height: ${({height}) => height}px;
 `
