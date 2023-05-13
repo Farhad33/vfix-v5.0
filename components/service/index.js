@@ -4,9 +4,9 @@ import Markdown from "../common/Markdown";
 import { default as Button } from '../common/BookButton'
 import { api, VFixBackendURL } from '../utility/api'
 
-export default function ServiceDetail({ id }) {
+export default function Service({ id }) {
     const [data,  setData] = useState({})
-    const url = `http://strapi.myvfix.com/api/services/${id}`
+    const url = `http://strapi.myvfix.com/api/services/${id}?populate=articles,thumbnail`
 
     useEffect(() => {
         if (id) {
@@ -19,7 +19,7 @@ export default function ServiceDetail({ id }) {
     return (
         <Container>
             <ContentContainer>
-                <Title>Title: {data?.attributes?.title}</Title>
+                <Title>{data?.attributes?.title}</Title>
                 <Markdown>{data?.attributes?.markdown}</Markdown>
                 <BookButton />
             </ContentContainer>
