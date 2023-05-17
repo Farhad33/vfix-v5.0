@@ -42,9 +42,7 @@ const StyledMarkdown = styled(ReactMarkdown)`
 const Markdown = ({ children }) => {
     const components = {
       img: ({node, ...props}) => {
-        console.log('props => ', props);
         const url = StrapiBaseURL + props.src
-        console.log('url => ', url);
         return <img {...props} src={url} />
       },
     };

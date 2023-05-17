@@ -7,7 +7,7 @@ import { api, StrapiBaseURL } from '../utility/api';
 
 export default function Article({id}) {
     const [data,  setData] = useState()
-    const url = `http://strapi.myvfix.com/api/articles/${id}?populate=thumbnail`
+    const url = `https://strapi.myvfix.com/api/articles/${id}?populate=thumbnail`
 
     const imageURL = () => {
         const { attributes: { thumbnail } } = data
@@ -24,8 +24,6 @@ export default function Article({id}) {
     }, [id])
     
     if (!data) return <p>Loading...</p>
-
-    console.log('data => ', data);
 
     return(
         <Container>

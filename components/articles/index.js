@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 
 export default function Articles() {
     
-    const { loading, error, data } = useFetch('http://strapi.myvfix.com/api/articles?populate=services,thumbnail');
+    const { loading, error, data } = useFetch('https://strapi.myvfix.com/api/articles?populate=services,thumbnail');
 
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error :(</p>
@@ -16,7 +16,7 @@ export default function Articles() {
         <Container>
             {data?.map((content) => (
                 <ArticleBox key={content.id}>
-                    <Thumbnail src={`http://strapi.myvfix.com${content.attributes.thumbnail.data.attributes.url}`} />
+                    <Thumbnail src={`https://strapi.myvfix.com${content.attributes.thumbnail.data.attributes.url}`} />
                     <TextBox>
                         <ArticleTitle>
                            {content.attributes.title}

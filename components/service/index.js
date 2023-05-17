@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 export default function Service({ id }) {
     const [data,  setData] = useState()
     const router = useRouter()
-    const url = `http://strapi.myvfix.com/api/services/${id}?populate=articles.thumbnail,thumbnail`
+    const url = `https://strapi.myvfix.com/api/services/${id}?populate=articles.thumbnail,thumbnail`
 
     useEffect(() => {
         if (id) {
