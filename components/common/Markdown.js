@@ -47,7 +47,7 @@ const Markdown = ({ children }) => {
       },
     };
   
-    return <StyledMarkdown components={components} plugins={[gfm]} children={children} />;
+    return <StyledMarkdown components={components} remarkPlugins={[gfm]} children={children} />;
 };
   
 
