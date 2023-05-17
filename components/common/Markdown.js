@@ -1,7 +1,9 @@
 import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
+import gfm from 'remark-gfm';
+import { StrapiBaseURL } from '../utility/api'
 
-const Markdown = styled(ReactMarkdown)`
+const StyledMarkdown = styled(ReactMarkdown)`
     font-family: 'Source Serif Pro', serif;
     h1, h2, h3, h4, h5, h6 {
         margin-top: 25px;
@@ -36,5 +38,19 @@ const Markdown = styled(ReactMarkdown)`
         }
     }
 `
+
+const Markdown = ({ children }) => {
+    const components = {
+      img: ({node, ...props}) => {
+        console.log('props => ', props);
+        const url = StrapiBaseURL + props.src
+        console.log('url => ', url);
+        return <img {...props} src={url} />
+      },
+    };
+  
+    return <StyledMarkdown components={components} plugins={[gfm]} children={children} />;
+};
+  
 
 export default Markdown
