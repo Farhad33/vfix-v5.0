@@ -1,96 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import useFetch from '../utility/hooks/useFetch';
-import ReactMarkdown from 'react-markdown'
+import Markdown from "../common/Markdown";
+import Image from 'next/image'
+import { api, StrapiBaseURL } from '../utility/api';
 
 
-export default function Article() {
+export default function Article({id}) {
+    const [data,  setData] = useState()
+    const url = `http://strapi.myvfix.com/api/articles/${id}?populate=thumbnail`
+
+    const imageURL = () => {
+        const { attributes: { thumbnail } } = data
+        let url = thumbnail?.data?.attributes?.formats?.small?.url || thumbnail?.data?.attributes?.url
+        return StrapiBaseURL + url
+    }
     
-    const { loading, error, data } = useFetch('strapi.myvfix.com/api/articles');
+    useEffect(() => {
+        if (id) {
+            api(url)
+            .then(response => setData(response.data.data))
+            .catch(error => console.log('error => ', error))
+        }
+    }, [id])
     
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error :(</p>
+    if (!data) return <p>Loading...</p>
 
-
-    console.log(data.data)
+    console.log('data => ', data);
 
     return(
         <Container>
-            <PageContent>
-                {data.data.map((article) => (
-                        <ArticleBox key={article.id}>
-                            <h1>{article.attributes.title}</h1>
-                            <Markdown key={article.id}>{article.attributes.markdown}</Markdown>
-                        </ArticleBox>
-                ))}
-            </PageContent>
-            <PageContent>
-                <RelativeArticleList>
-                    {data.data.map((article) => (
-                        <li key={article.id}>
-                            {article.attributes.title}
-                        </li>
-                    ))}
-                </RelativeArticleList>
-            </PageContent>
+            <Title>{data.attributes.title}</Title>
+            <ArticleImage
+                height={400}
+                src={imageURL()}
+                alt="test"
+            />
+            <Markdown>{data.attributes.markdown}</Markdown>
         </Container>
     )
 }
 
-const Markdown = styled(ReactMarkdown)`
-    max-width: 600px;
-
-    h1, h2, h3, h4, h5, h6 {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    p, ol, li, img {
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-    p {
-        white-space: pre-wrap;
-        color: #2D3236;
-        font-size: 18px;
-        line-height: 30px;
-        letter-spacing: 0;
-    }
-    img {
-        width: 100%;
-    }
-    ol {
-        margin-left: 18px;
-    }
-`
-
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-`
-
-
-const PageContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 40%;
+    margin: 50px auto;
 `
-
-const ArticleBox = styled.div`
-    border: 2px solid black;
-    margin: 10px;
+const Title = styled.h1`
+    font-size: 40px;
 `
-
-
-const RelativeArticleList = styled.div`
-    background-color: lightgray;
-    border: 2px solid black;
-`
-
-
-const P = styled.p`
-    margin: 5%;
+const ArticleImage = styled.img`
+    height: ${({height}) => height}px;
+    margin: 50px auto;
 `

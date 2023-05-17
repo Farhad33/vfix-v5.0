@@ -3,10 +3,11 @@ import styled from 'styled-components'
 import Markdown from "../common/Markdown";
 import { default as Button } from '../common/BookButton'
 import { api, VFixBackendURL } from '../utility/api'
-
+import { useRouter } from 'next/router'
 
 export default function Service({ id }) {
-    const [data,  setData] = useState({})
+    const [data,  setData] = useState()
+    const router = useRouter()
     const url = `http://strapi.myvfix.com/api/services/${id}?populate=articles.thumbnail,thumbnail`
 
     useEffect(() => {
@@ -17,35 +18,41 @@ export default function Service({ id }) {
         }
     }, [id])
 
-    return ( <> { Object.keys(data).length ? 
+    const articleOnClick = (id) => {
+        router.push(`/articles/${id}`)
+    }
+
+    if (!data) return <p>Loading...</p>
+
+    return (
         <Container>    
             <ServiceContainer>
                 <Title>{data?.attributes?.title}</Title>
                 <ServiceImage
                     src={`https://strapi.myvfix.com/${data?.attributes?.thumbnail?.data?.attributes?.url}`}
                     alt={data?.attributes?.thumbnail?.data?.attributes?.alternativeText}
+                    height={300}
                 />
                 <Markdown>{data?.attributes?.markdown}</Markdown>
                 <BookButton />
             </ServiceContainer>
             <AticleContainer>
              { data?.attributes?.articles?.data?.map(({attributes: { title , thumbnail, description}, id}) => (
-                <AticleCard key={id}>
+                <ArticleCard key={id} onClick={ () => articleOnClick(id)}>
                     <h4>{title}</h4>
                     <ArticleContent>
                         <ArticleImage
                             src={`https://strapi.myvfix.com/${thumbnail?.data?.attributes?.url}`}
                             alt={thumbnail?.data?.attributes?.alternativeText}
+                            width={100}
                         />
                         <div><p>{description}</p></div>
                     </ArticleContent>    
-                </AticleCard>
+                </ArticleCard>
             ))}
             </AticleContainer>
         </Container>
-        : ''
-    }
-    </>)
+    )
 }
 
 const Container = styled.div`
@@ -74,12 +81,13 @@ const BookButton = styled(Button)`
 const AticleContainer = styled.div`
     margin-bottom: 50px;
 `
-const AticleCard = styled.div`
+const ArticleCard = styled.div`
     display: flex;
     flex-direction: column;
     border: 1px solid lightgray;
     margin-bottom: 50px;
     padding: 10px;
+    cursor: pointer;
 `
 const ArticleContent = styled.div`
     display: flex;
@@ -97,10 +105,10 @@ const ArticleContent = styled.div`
 `
 
 const ArticleImage = styled.img`
-    height: 150px;
+    width: ${({width}) => width}px;
+    margin: auto;
 `
 const ServiceImage = styled.img`
-    width: 200px;
-    height: 200px;
-    margin: auto;
+    height: ${({height}) => height}px;
+    margin: 50px auto;
 `

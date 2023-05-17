@@ -21,7 +21,7 @@ export default function Services() {
             <TabContainer>
                 <TabItems>
                     {data.map(({id, attributes: {title, description, thumbnail}}) => (
-                        <Item key={id}  href={`${baseURL}/service/${id}`}>
+                        <Item key={id}  href={`${baseURL}/services/${id}`}>
                             <h2>{title}</h2>
                             <p>{description}</p>
                             <img src={`https://strapi.myvfix.com${thumbnail.data.attributes.url}`} />
