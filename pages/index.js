@@ -20,13 +20,13 @@ export default function Index() {
                 <meta name="description" content="VFix provides onsite computer and handyman services such as TV Mounting, Furniture Assembly, Exercise Equipment Assembly wall hanging and more."></meta>
                 <meta name="keywords" content="VFix, VFix San Francisco, myvfix, Computer Support, Printer Setup, Wifi Solution, Virus Removal, Electronic Setup, PC Tune-Up, Data Backup, Artificial Intelligence, Smart Home Setup, Smart Lighting, Smart Lock, Smart Remote Setup, Smart Thermostat, Board Installation, Furniture Assembly, Grill Assembly, Handyman Services, TV Mount Service"></meta>
                 <link rel="shortcut icon" href="static/assets/logo/site-icon.png"></link>
-                <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
             </Head>
             <FirstPage />
             <Why />
             <Services />
             <Contact />
             <Footer />
+            <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
         </>
     )
 }
