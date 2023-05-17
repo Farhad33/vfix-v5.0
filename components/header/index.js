@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import Image from 'next/image'
+import logo from '../../public/assets/logo/VFIX-logo-White.png'
+import { useRouter } from 'next/router'
 
 export default function Header({ overlay, toggelOverlay }) {
 	const [ ham, setHam ] = useState(false)
+	const router = useRouter()
 	
 	const NavItemOnClick = (size) => {
 		if(size) {
@@ -13,9 +17,20 @@ export default function Header({ overlay, toggelOverlay }) {
 		}
 	}
 
+	const logoOnclick = () => {
+		router.push('/')
+	}
+
 	return (
 		<Container>
-			<Logo width={160} height={80} src='assets/logo/VFIX-logo-White.png' />
+			<Logo
+				width={160}
+				height={80}
+				src={logo}
+				alt="VFix Logo"
+				priority={true}
+				onClick={logoOnclick}
+			/>
 			<Nav ham={ ham }>
 				<NavItem href="/#services">Services</NavItem>
 				<NavItem href="/#contactus" >Contact Us</NavItem>
@@ -93,7 +108,7 @@ const NavItem = styled.a`
 	}
 `
 
-const Logo = styled.img`
+const Logo = styled(Image)`
 	cursor: pointer;
 	width: ${({width}) => width}px;
 	height: ${({height}) => height}px;

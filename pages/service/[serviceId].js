@@ -9,7 +9,7 @@ export default function ServiceDetail() {
 
     return (
         <>
-            <Header />              
+            <Header />           
             <Service id={serviceId} />
             <Footer />
         </>

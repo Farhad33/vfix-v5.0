@@ -16,7 +16,8 @@ export default function Service({ id }) {
             .catch(error => console.log('error => ', error))
         }
     }, [id])
-    return (
+
+    return ( <> { Object.keys(data).length ? 
         <Container>    
             <ServiceContainer>
                 <Title>{data?.attributes?.title}</Title>
@@ -42,7 +43,9 @@ export default function Service({ id }) {
             ))}
             </AticleContainer>
         </Container>
-    )
+        : ''
+    }
+    </>)
 }
 
 const Container = styled.div`
