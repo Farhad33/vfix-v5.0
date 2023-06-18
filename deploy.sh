@@ -7,7 +7,7 @@ rm VFixWeb-5.tar.gz
 ssh vfix << 'ENDSSH'
 rm -rf VFixWeb-5
 mkdir VFixWeb-5
-tar xf VFixWeb-5.tar.gz -C VFixWeb-5
+tar xf VFixWeb-5.tar.gz -C VFixWeb-5 2> /dev/null
 rm VFixWeb-5.tar.gz
 cd VFixWeb-5
 find  . -name '._*' -exec rm {} \;

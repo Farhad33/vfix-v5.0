@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import Modal from '../modal'
 
 export default function BookButton({ children, className }) {
-	const [ open, setOpen ] = useState(false)
+
+	const handleOnClick = () => {
+		Zenbooker.showPopupWidget('https://widget.zenbooker.com/book/1602564569602x960307736376989400?embed=true')
+	}
+
 	return (
-		<>
-			{ open &&
-				<Modal setOnClose={  setOpen  }>
-					<Iframe
-						src='https://widget.zenbooker.com/book/1602564569602x960307736376989400'
-					></Iframe>
-				</Modal> 
-			}
-			<Button className={className} onClick={ () => setOpen(true) }>{ children || 'Book Now' }</Button>
-		</>
+		<Button
+			className={className}
+			onClick={handleOnClick}
+		>
+			{ children || 'Book Now' }
+		</Button>
 	)
 }
 
@@ -35,10 +34,4 @@ const Button = styled.div`
 	:active {
 		background: #57b5fd;
 	}
-`
-
-const Iframe = styled.iframe`
-	width: 100%;
-	height: 100%;
-	background: rgba(255, 255, 255, 0.85);
 `
