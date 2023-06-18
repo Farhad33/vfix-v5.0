@@ -9,7 +9,7 @@ export default function BookButton({ children, className }) {
 			{ open &&
 				<Modal setOnClose={  setOpen  }>
 					<Iframe
-						src='https://app.acuityscheduling.com/schedule.php?owner=12272304'
+						src='https://widget.zenbooker.com/book/1602564569602x960307736376989400'
 					></Iframe>
 				</Modal> 
 			}
