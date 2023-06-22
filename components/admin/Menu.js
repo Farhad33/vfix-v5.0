@@ -48,7 +48,8 @@ export default function Menu({ setJobs }) {
     
     function convertToMinutes(timeString) {
         const [hours, minutes] = timeString.split(':').map(Number);
-        return hours * 60 + minutes;
+        const totalMinutes = hours * 60 + minutes;
+        return totalMinutes < 60 ? 60 : totalMinutes
     }
     
     const calculateFinalPay = ({technicianRateMode, technicianRate=0, totalHour=0, cash=0, reimbursement=0, jobPrice=0, sideTech}) => {
@@ -56,10 +57,10 @@ export default function Menu({ setJobs }) {
             return Number(sideTech)
         }
         let finalPayment = 0
-        const hours = convertToMinutes(totalHour)
+        const minutes = convertToMinutes(totalHour)
         const rate = Number(technicianRate) / 60
         if(technicianRateMode === 'hourly') {
-            finalPayment = (hours * rate) - Number(cash) + Number(reimbursement)
+            finalPayment = (minutes * rate) - Number(cash) + Number(reimbursement)
             finalPayment = finalPayment.toFixed(2)
         } else if(technicianRateMode === 'percentage') {
             finalPayment = (jobPrice * (Number(technicianRate)/100)) - Number(cash) + Number(reimbursement)
