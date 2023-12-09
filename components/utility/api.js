@@ -13,18 +13,18 @@ export const api = axios.create({
 
 const isBrowser = typeof window !== 'undefined';
 
-const getToken = () => {
+export const getToken = () => {
     if(isBrowser) {
         let jwt = sessionStorage.getItem("jwt");
-        return `bearer ${jwt}`
+        return jwt
     }
-    return `bearer `
+    return ``
 }
 
 export const authAPI = () => axios.create({
     baseURL: VFixBackendURL,
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': getToken()
+        'Authorization': `bearer ${getToken()}`
     }
 })

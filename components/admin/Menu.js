@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { authAPI } from '../utility/api'
+import { authAPI, getToken } from '../utility/api'
 
 import dayjs from 'dayjs';
 import { LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
@@ -21,16 +21,22 @@ export default function Menu({ setJobs }) {
     const [dateTo, setDateTo] = useState(now)
     const [selectedTech, setSelectedTech] = useState('');
     const [techs, setTechs] = useState([])
+    const token = getToken()
 
     const handleTechChange = (event) => {
         setSelectedTech(event.target.value + '');
     };
 
     useEffect(() => {
-        authAPI().get('/technicians')
-        .then(result => setTechs(result.data.data) )
-        .catch(console.log)
-    }, [])
+        if(token) {
+            authAPI().get('/technicians')
+            .then(result => {
+                console.log('result.data.data => ', result.data.data);
+                setTechs(result.data.data) 
+            })
+            .catch(console.log)
+        }
+    }, [token])
 
     const handleSearchSubmit = (event) => {
         event.preventDefault()
@@ -143,7 +149,8 @@ export default function Menu({ setJobs }) {
     return jobs
 }
 
-    if(!techs.length) return <div>Loading</div>
+    // if(!techs.length) return <div>Loading</div>
+    console.log('techs => ', techs);
     
     return (
         <Header>
