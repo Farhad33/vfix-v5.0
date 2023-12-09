@@ -184,6 +184,15 @@ const CustomCellTooltip = ({ id, row: { isPaid, technicianRate, technicianRateMo
     setOpen(false)
   }
 
+  const handleTechDeletion = () => {
+    console.log('id => ', id);
+    authAPI().delete(`/jobs/${id}`)
+    .then(result => {
+      console.log('result => ', result);
+    })
+    .catch(console.log)
+  }
+
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <div>
@@ -216,9 +225,14 @@ const CustomCellTooltip = ({ id, row: { isPaid, technicianRate, technicianRateMo
                   </Button>
                 }
                 <Button 
-                  variant="contained"
+                  variant="outlined"
                   onClick={handleTechCompensationClick}
                 >Tech Compensation</Button>
+                <Button 
+                  variant="contained"
+                  color="error"
+                  onClick={handleTechDeletion}
+                >Detele</Button>
               </TooltipTitle>
             } 
           >
