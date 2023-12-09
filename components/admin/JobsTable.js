@@ -22,6 +22,7 @@ export default function JobsTable({ jobs }) {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'status', headerName: 'Status', width: 100, renderCell: ({row: {status}}) =>`${status || ''}` },
     { field: 'comp', headerName: 'Tech Comp', width: 100, renderCell: ({ row: {technicianRate, technicianRateMode} }) => {
       let rateAndSign = technicianRateMode === 'percentage' ? '% ' : 'H '
       rateAndSign += technicianRate
@@ -38,6 +39,7 @@ export default function JobsTable({ jobs }) {
     } },
     { field: 'totalHour', headerName: 'Total Hours Worked', width: 130 },
     { field: 'jobPrice', headerName: 'Final price of the job', width: 130, renderCell: ({row: {jobPrice}}) =>`$${jobPrice}` },
+    { field: 'partsPrice', headerName: 'Parts', width: 70, renderCell: ({row: {partsPrice}}) =>`$${partsPrice}` },
     { field: 'cash', headerName: 'Cash Received By Technician', width: 130, renderCell: ({row: {sideTech, cash}}) => {
       return sideTech.length ? <GrayCell>${cash}</GrayCell> : <div>${cash}</div>
     } },
@@ -51,8 +53,7 @@ export default function JobsTable({ jobs }) {
       : 
       <FinalPay color='red'><HighlightOffIcon/>${finalPay}</FinalPay>
     ) },
-    // tooltip
-    { field: 'tooltip', headerName: 'tooltip', width: 10, renderCell: CustomCellTooltip}
+    { field: 'tooltip', headerName: '', width: 10, renderCell: CustomCellTooltip}
 
   ];
 
@@ -87,8 +88,6 @@ export default function JobsTable({ jobs }) {
                 slots={{
                   toolbar: CustomToolbar,
                 }}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
                 checkboxSelection
                 onRowSelectionModelChange={(newRowSelectionModel) => {
                   selectedRows.current = newRowSelectionModel
@@ -121,21 +120,12 @@ const JobsContainer = styled.div`
   .MuiDataGrid-row--lastVisible {
     .MuiDataGrid-cell {
       border-bottom: 0;
-      :nth-child(1) {
-        visibility: hidden;
-      }
-      :nth-child(2) {
-        visibility: hidden;
-      }
-      :nth-child(3) {
-        visibility: hidden;
-      }
-      :nth-child(4), :nth-child(6), :nth-child(8), :nth-child(9), :nth-child(11) {
+      :nth-child(5), :nth-child(7), :nth-child(10), :nth-child(13) {
         font-weight: 600;
         font-size: 18px;
         text-align: center;
       }
-      :nth-child(11) {
+      :nth-child(13) {
         p {
           color: black;
         }
@@ -143,16 +133,7 @@ const JobsContainer = styled.div`
           display: none;
         }
       }
-      :nth-child(12) {
-        visibility: hidden;
-      }
-      :nth-child(5) {
-        visibility: hidden;
-      }
-      :nth-child(7) {
-        visibility: hidden;
-      }
-      :nth-child(10) {
+      :nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(6), :nth-child(8), :nth-child(9), :nth-child(11), :nth-child(12), :nth-child(14) {
         visibility: hidden;
       }
     }

@@ -23,6 +23,7 @@ export default function TechCompensation({ open, setOpen, technicianRate, techni
     const handleOnSubmit = (e) => {
         e.preventDefault()
         // update the job (job-technicians)
+        console.log('id => ', id);
         let dataJobTech = {  
             technicianRateMode: mode,
             technicianRate: rate,
@@ -30,20 +31,25 @@ export default function TechCompensation({ open, setOpen, technicianRate, techni
         }
         authAPI().put(`/job-technicians`, dataJobTech)
         .then(result => {
+            console.log('job-technicians result => ', result);
             setOpen(false)
         })
         .catch(console.log)
 
 
         if(futureJobs) {
+            console.log('futureJobs => ', futureJobs);
+            console.log('strapiTechID => ', strapiTechID);
             // update technicians
             let dataTech = {  
                 technicianRateMode: mode,
                 technicianRate: rate,
                 id: strapiTechID
             }
+            // technicians
             authAPI().put(`/technicians`, dataTech)
             .then(result => {
+                console.log('technicians result => ', result);
                 setOpen(false)
             })
             .catch(console.log)

@@ -52,7 +52,16 @@ export default function Menu({ setJobs }) {
         return totalMinutes < 60 ? 60 : totalMinutes
     }
     
-    const calculateFinalPay = ({technicianRateMode, technicianRate=0, totalHour=0, cash=0, reimbursement=0, jobPrice=0, sideTech}) => {
+    const calculateFinalPay = ({
+        technicianRateMode,
+        technicianRate=0,
+        totalHour=0,
+        cash=0,
+        reimbursement=0,
+        jobPrice=0,
+        sideTech,
+        partsPrice
+    }) => {
         if (sideTech.length > 0) {
             return Number(sideTech)
         }
@@ -63,7 +72,8 @@ export default function Menu({ setJobs }) {
             finalPayment = (minutes * rate) - Number(cash) + Number(reimbursement)
             finalPayment = finalPayment.toFixed(2)
         } else if(technicianRateMode === 'percentage') {
-            finalPayment = (jobPrice * (Number(technicianRate)/100)) - Number(cash) + Number(reimbursement)
+            let jobPriceWithoutParts = jobPrice - partsPrice
+            finalPayment = (jobPriceWithoutParts * (Number(technicianRate)/100)) - Number(cash) + Number(reimbursement)
             finalPayment = finalPayment.toFixed(2)
             
         }
@@ -84,7 +94,7 @@ export default function Menu({ setJobs }) {
             reimbursement: 0,
             hours: 0,
         }
-    
+        console.log('data => ', data);
         let jobs = data.map(element => {
             let job = {}
             job.id = element.id
@@ -97,8 +107,11 @@ export default function Menu({ setJobs }) {
             job.jobPrice = element.attributes.jobs.data[0].attributes.jobPrice
             job.jobDate = element.attributes.jobs.data[0].attributes.jobDate
             job.jobHour = element.attributes.jobs.data[0].attributes.jobHour
+            job.partsPrice = element.attributes.jobs.data[0].attributes.partsPrice | 0
+            job.status = element.attributes.jobs.data[0].attributes.status
             job.totalHour = element.attributes.jobs.data[0].attributes.totalHoursWorked
             job.cash = element.attributes.jobs.data[0].attributes.cash
+            job.strapiTechID = element.attributes.technicians.data[0].id
             const finalPay = calculateFinalPay(job)
             job.finalPay = finalPay
             sum.cash = sum.cash += Number(job.cash)
